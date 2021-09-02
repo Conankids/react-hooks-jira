@@ -16,6 +16,7 @@
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-sonarjs": "^0.10.0",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -26,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "mock": "json-server -w -p=3001 __json_server_mock__/db.json"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +54,7 @@
     "@commitlint/config-conventional": "^13.1.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.2",
+    "json-server": "^0.16.3",
     "prettier": "^2.3.2"
   }
 }
