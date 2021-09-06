@@ -1,12 +1,21 @@
+import { AuthEnticatedApp } from 'authenticated-app'
+import { useAuth } from 'context/auth-context'
 import React from 'react'
-import logo from './logo.svg'
+import { UnAuthEnticatedApp } from 'unauthenticated-app'
 import './App.css'
-import { ProjectList } from 'screens/project-list'
 
-function App() {
+function App(): JSX.Element {
+  const { user, logout } = useAuth()
   return (
     <div className="App">
-      <ProjectList></ProjectList>
+      {user ? (
+        <div>
+          <button onClick={logout}>退出登录</button>
+          <AuthEnticatedApp />
+        </div>
+      ) : (
+        <UnAuthEnticatedApp />
+      )}
     </div>
   )
 }
