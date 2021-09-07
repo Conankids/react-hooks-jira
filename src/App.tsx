@@ -5,12 +5,11 @@ import { UnAuthEnticatedApp } from 'unauthenticated-app'
 import './App.css'
 
 function App(): JSX.Element {
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
   return (
     <div className="App">
       {user ? (
         <div>
-          <button onClick={logout}>退出登录</button>
           <AuthEnticatedApp />
         </div>
       ) : (
