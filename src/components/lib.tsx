@@ -10,9 +10,7 @@ export const Row = styled.div<{
     props.between === true ? 'space-between' : undefined};
   align-items: center;
   margin-bottom: ${(props) =>
-    typeof props.marginBottom === 'undefined'
-      ? props.marginBottom + 'rem'
-      : undefined};
+    typeof props.marginBottom !== 'undefined' && props.marginBottom + 'rem'};
   > * {
     margin-top: 0 !important;
     margin-bottom: 0 !important;

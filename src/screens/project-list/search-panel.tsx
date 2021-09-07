@@ -1,6 +1,8 @@
+/** @jsxImportSource @emotion/react */
+
+import { jsx } from '@emotion/react'
 import React from 'react'
 import { Form, Input, Select } from 'antd'
-
 export interface User {
   id: number
   name: string
@@ -16,23 +18,17 @@ interface SearchPanelProps {
   setParam: (param: SearchPanelProps['param']) => void
 }
 
-export const SearchPanel = ({
-  param,
-  users,
-  setParam,
-}: SearchPanelProps): JSX.Element => {
+export const SearchPanel = ({ param, users, setParam }: SearchPanelProps) => {
   return (
-    <Form>
+    <Form css={{ marginBottom: '2rem' }} layout={'inline'}>
       <Form.Item>
         <Input
-          type={'text'}
           value={param.name}
           onChange={(evt) => setParam({ ...param, name: evt.target.value })}
         />
       </Form.Item>
       <Form.Item>
         <Select
-          defaultValue={''}
           value={param.personId}
           onChange={(personId) => setParam({ ...param, personId })}
         >
