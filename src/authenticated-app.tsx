@@ -8,8 +8,10 @@ import { Dropdown, Menu, Button } from 'antd'
 
 export const AuthEnticatedApp = () => {
   const { logout, user } = useAuth()
+  const value: any = undefined
   return (
     <Container>
+      {value.name}
       <PageHeader between={true}>
         <HeaderLeft gap={true}>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
