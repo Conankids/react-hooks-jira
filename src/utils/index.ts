@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react'
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value)
 
-export const cleanObject = <T, U extends keyof T>(obj: T): Pick<T, U> => {
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === ''
+
+export const cleanObject = (obj: Record<string, unknown>) => {
   const result = { ...obj }
   Object.keys(result).forEach((key) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const value = result[key]
-    if (isFalsy(value)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    if (isVoid(value)) {
       delete result[key]
     }
   })

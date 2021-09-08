@@ -2,11 +2,13 @@ import { useAuth } from 'context/auth-context'
 import React from 'react'
 import { Form, Input, Button } from 'antd'
 import styled from '@emotion/styled'
+import { useAsync } from 'utils/use-async'
 
-export const Login = () => {
+export const Login = ({ onError }: { onError: (error: Error) => void }) => {
   const { login } = useAuth()
+  const { run, isLoading } = useAsync(undefined, { throwAsyncError: true })
   const handleSubmit = (values: { username: string; password: string }) => {
-    login(values)
+    run(login(values)).catch(onError)
   }
   return (
     <Form onFinish={handleSubmit}>
@@ -23,7 +25,7 @@ export const Login = () => {
         <Input.Password placeholder={'密码'} />
       </Form.Item>
       <Form.Item>
-        <LongBtn htmlType="submit" type={'primary'}>
+        <LongBtn loading={isLoading} htmlType="submit" type={'primary'}>
           登录
         </LongBtn>
       </Form.Item>

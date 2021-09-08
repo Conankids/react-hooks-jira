@@ -1,22 +1,20 @@
 import React from 'react'
 import { User } from './search-panel'
-import { Table } from 'antd'
+import { Table, TableProps } from 'antd'
 import dayjs from 'dayjs'
-
-interface Project {
+export interface Project {
   id: number
   name: string
-  personId: number
+  personId: string
   organization: string
   created: number
 }
 
-interface ListProp {
-  list: Project[]
+interface ListProp extends TableProps<Project> {
   users: User[]
 }
 
-export const List = ({ list, users }: ListProp) => {
+export const List = ({ users, ...props }: ListProp) => {
   return (
     <Table
       pagination={false}
@@ -57,7 +55,7 @@ export const List = ({ list, users }: ListProp) => {
           },
         },
       ]}
-      dataSource={list}
+      {...props}
     ></Table>
   )
 }

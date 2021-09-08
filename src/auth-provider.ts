@@ -1,8 +1,6 @@
 // 在真实环境中，如果使用firebase这种第三方服务的话，本文件不需要开发者开发
-
+import { http } from 'utils/http'
 import { User } from 'screens/project-list/search-panel'
-
-const apiPath = process.env.REACT_APP_API_URL
 
 const localStorageKey = '__auth_provider_token__'
 
@@ -14,35 +12,17 @@ export const handleUserResponse = ({ user }: { user: User }) => {
 }
 
 export const login = (param: { username: string; password: string }) => {
-  return fetch(`${apiPath}/login`, {
+  return http(`login`, {
     method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(param),
-  }).then(async (response) => {
-    if (response.ok) {
-      return handleUserResponse(await response.json())
-    } else {
-      return Promise.reject(response)
-    }
-  })
+    data: param,
+  }).then(handleUserResponse)
 }
 
 export const register = (param: { username: string; password: string }) => {
-  return fetch(`${apiPath}/register`, {
+  return http(`register`, {
     method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(param),
-  }).then(async (response) => {
-    if (response.ok) {
-      return handleUserResponse(await response.json())
-    } else {
-      return Promise.reject(response)
-    }
-  })
+    data: param,
+  }).then(handleUserResponse)
 }
 
 export const logout = async () =>
