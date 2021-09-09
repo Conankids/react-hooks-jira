@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { List } from './list'
 import { SearchPanel } from './search-panel'
 import { useDebounce /*, useArray */ } from 'utils/index'
@@ -6,12 +6,11 @@ import styled from '@emotion/styled'
 import { useProjects } from './project'
 import { useUsers } from './users'
 import { Typography } from 'antd'
+import { useQueryParam } from 'utils/url'
 
 export const ProjectList = () => {
-  const [param, setParam] = useState({
-    name: '',
-    personId: '',
-  })
+  // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
+  const [param, setParam] = useQueryParam(['name', 'personId'])
   const debounceParam = useDebounce(param, 300)
   const { isLoading, error, data: list } = useProjects(debounceParam)
   // const persons: { name: string; age: number }[] = [
@@ -25,7 +24,6 @@ export const ProjectList = () => {
   // }, [value])
 
   const { data: users } = useUsers()
-
   return (
     <Container>
       <h1>项目列表</h1>
@@ -37,7 +35,7 @@ export const ProjectList = () => {
     </Container>
   )
 }
-
+ProjectList.whyDidYouRender = true
 const Container = styled.div`
   padding: 3.2rem;
 `

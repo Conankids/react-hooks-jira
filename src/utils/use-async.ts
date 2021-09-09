@@ -8,11 +8,13 @@ interface State<D> {
 }
 
 interface Config {
-  throwAsyncError: boolean
+  throwAsyncError?: boolean
+  needSetData?: boolean
 }
 
 const defaultConfig: Config = {
   throwAsyncError: false,
+  needSetData: true,
 }
 
 const defaultState: State<null> = {
@@ -23,7 +25,7 @@ const defaultState: State<null> = {
 
 // async hooks
 export const useAsync = <D>(initState?: State<D>, initConfig?: Config) => {
-  const { throwAsyncError } = { ...defaultConfig, ...initConfig }
+  const { throwAsyncError, needSetData } = { ...defaultConfig, ...initConfig }
   const [state, setState] = useState({
     ...defaultState,
     ...initState,
@@ -49,7 +51,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: Config) => {
     setState({ ...state, stat: 'loading' })
     try {
       const data = await promise
-      setData(data)
+      if (needSetData) setData(data)
       return data
     } catch (error) {
       setError(error as Error)

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value)
 
@@ -52,3 +52,24 @@ export const useArray = <T>(arr: T[]) => {
     },
   }
 }
+
+export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
+  // useRef可以保存一个值，整个生命周期不会影响它
+  const oldTitle = useRef(document.title).current
+  // const [oldTitle] = useState(document.title)
+
+  useEffect(() => {
+    document.title = title
+    console.log(title)
+  }, [title])
+
+  useEffect(() => {
+    return () => {
+      if (!keepOnUnmount) {
+        document.title = oldTitle
+      }
+    }
+  }, [oldTitle, keepOnUnmount])
+}
+
+export const resetRoute = () => (window.location.href = window.location.origin)

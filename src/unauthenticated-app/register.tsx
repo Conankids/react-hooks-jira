@@ -3,6 +3,7 @@ import React from 'react'
 import { Form, Input, Button } from 'antd'
 import styled from '@emotion/styled'
 import { useAsync } from 'utils/use-async'
+import { useDocumentTitle } from 'utils'
 
 export const Register = ({ onError }: { onError: (error: Error) => void }) => {
   const { register } = useAuth()
@@ -21,6 +22,7 @@ export const Register = ({ onError }: { onError: (error: Error) => void }) => {
     }
     run(register(values)).catch(onError)
   }
+  useDocumentTitle('注册', false)
   return (
     <Form onFinish={handleSubmit}>
       <Form.Item

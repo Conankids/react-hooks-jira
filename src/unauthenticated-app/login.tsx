@@ -3,13 +3,18 @@ import React from 'react'
 import { Form, Input, Button } from 'antd'
 import styled from '@emotion/styled'
 import { useAsync } from 'utils/use-async'
+import { useDocumentTitle } from 'utils'
 
 export const Login = ({ onError }: { onError: (error: Error) => void }) => {
   const { login } = useAuth()
-  const { run, isLoading } = useAsync(undefined, { throwAsyncError: true })
+  const { run, isLoading } = useAsync(undefined, {
+    throwAsyncError: true,
+    needSetData: false,
+  })
   const handleSubmit = (values: { username: string; password: string }) => {
     run(login(values)).catch(onError)
   }
+  useDocumentTitle('登录', false)
   return (
     <Form onFinish={handleSubmit}>
       <Form.Item
