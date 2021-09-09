@@ -6,13 +6,12 @@ import styled from '@emotion/styled'
 import { useProjects } from './project'
 import { useUsers } from './users'
 import { Typography } from 'antd'
-import { useQueryParam } from 'utils/url'
+import { useProjectsSearchParams } from './url'
 
 export const ProjectList = () => {
   // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
-  const [param, setParam] = useQueryParam(['name', 'personId'])
-  const debounceParam = useDebounce(param, 300)
-  const { isLoading, error, data: list } = useProjects(debounceParam)
+  const [param, setParam] = useProjectsSearchParams()
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 300))
   // const persons: { name: string; age: number }[] = [
   //   { name: 'jack', age: 25 },
   //   { name: 'li', age: 20 },
