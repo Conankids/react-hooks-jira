@@ -3,6 +3,7 @@
   "extends": [
     // "plugin:sonarjs/recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     // "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
@@ -24,6 +25,7 @@
     // "sonarjs/cognitive-complexity": ["error", 5],
     "max-lines-per-function": ["warn", 100],
     "@typescript-eslint/explicit-module-boundary-types": ["off"],
+    "@typescript-eslint/no-empty-function": ["off"],
     "cognitive-complexity": ["off"]
   }
 }

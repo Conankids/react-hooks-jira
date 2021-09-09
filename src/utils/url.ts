@@ -17,6 +17,7 @@ export const useQueryParam = <K extends string>(keys: K[]) => {
           }),
           {} as Record<K, string>,
         ),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [searchParams],
     ),
     (params: Partial<{ [key in K]: unknown }>) => {

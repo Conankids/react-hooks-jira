@@ -9,7 +9,6 @@ export const Login = ({ onError }: { onError: (error: Error) => void }) => {
   const { login } = useAuth()
   const { run, isLoading } = useAsync(undefined, {
     throwAsyncError: true,
-    needSetData: false,
   })
   const handleSubmit = (values: { username: string; password: string }) => {
     run(login(values)).catch(onError)

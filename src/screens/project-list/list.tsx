@@ -3,24 +3,43 @@ import { User } from './search-panel'
 import { Table, TableProps } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import { Pin } from 'components/pin'
+import { useEditProject } from './project'
 export interface Project {
   id: number
   name: string
   personId: number
   organization: string
   created: number
+  pin: boolean
 }
 
 interface ListProp extends TableProps<Project> {
   users: User[]
+  refresh?: () => void
 }
 
-export const List = ({ users, ...props }: ListProp) => {
+export const List = ({ users, refresh, ...props }: ListProp) => {
+  const { mutate } = useEditProject()
+  // 巧用函数柯里化实现多参数调用
+  const pinProject = (id: number) => (pin: boolean) =>
+    mutate({ id, pin }).then(refresh)
   return (
     <Table
       pagination={false}
       rowKey="id"
       columns={[
+        {
+          title: <Pin checked={true} disabled={true} />,
+          render(value, project) {
+            return (
+              <Pin
+                checked={project.pin}
+                onCheckedChange={pinProject(project.id)}
+              />
+            )
+          },
+        },
         {
           title: '名称',
           sorter: (a, b) => a.name.localeCompare(b.name),

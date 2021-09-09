@@ -13,6 +13,6 @@ export const useUsers = (params?: Partial<User>) => {
         data: cleanObject(params || {}),
       }),
     )
-  }, [params])
+  }, [params, client, run])
   return result
 }

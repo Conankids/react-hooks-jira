@@ -19,7 +19,7 @@ export const cleanObject = (obj: Record<string, unknown>) => {
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback()
-  }, [])
+  }, [callback])
 }
 
 export const useDebounce = <T>(value: T, delay?: number) => {
@@ -73,3 +73,17 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
 }
 
 export const resetRoute = () => (window.location.href = window.location.origin)
+
+/**
+ * 返回组件挂载状态，如果组件未挂载或已卸载返回false，反之，返回true
+ */
+export const useMountedRef = () => {
+  const didMount = useRef(false)
+  useEffect(() => {
+    didMount.current = true
+    return () => {
+      didMount.current = false
+    }
+  }, [])
+  return didMount
+}
