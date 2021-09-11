@@ -5,10 +5,10 @@ import { useDebounce /*, useArray */ } from 'utils/index'
 import styled from '@emotion/styled'
 import { useProjects } from './project'
 import { useUsers } from './users'
-import { Typography } from 'antd'
+import { Row, Typography } from 'antd'
 import { useProjectsSearchParams } from './url'
 
-export const ProjectList = () => {
+export const ProjectList = (props: { projectButton: JSX.Element }) => {
   // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
   const [param, setParam] = useProjectsSearchParams()
   const {
@@ -30,7 +30,10 @@ export const ProjectList = () => {
   const { data: users } = useUsers()
   return (
     <Container>
-      <h1>项目列表</h1>
+      <Row justify={'space-between'}>
+        <h1>项目列表</h1>
+        {props.projectButton}
+      </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? (
         <Typography.Text type={'danger'}>{error.message}</Typography.Text>
@@ -40,6 +43,7 @@ export const ProjectList = () => {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
+        {...props}
       />
     </Container>
   )

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useReducer, useState } from 'react'
 import { useMountedRef } from 'utils'
 
 // 接口
@@ -22,34 +22,44 @@ const defaultState: State<null> = {
   stat: 'idle',
 }
 
+const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
+  const mountRef = useMountedRef()
+
+  return useCallback(
+    (...args: T[]) => (mountRef.current ? dispatch(...args) : void 0),
+    [dispatch, mountRef],
+  )
+}
+
 // async hooks
 export const useAsync = <D>(initState?: State<D>, initConfig?: Config) => {
   const { throwAsyncError } = { ...defaultConfig, ...initConfig }
-  const [state, setState] = useState({
-    ...defaultState,
-    ...initState,
-  })
+  const [state, dispatch] = useReducer(
+    // 调用dispatch时会调用该函数，dispatch中传递的值会覆盖state并更新state
+    (state: State<D>, action: Partial<State<D>>) => ({ ...state, ...action }),
+    { ...defaultState, ...initState },
+  )
   // useState初始化时会自动调用一次初始化函数并把结果赋值给state作为初始值
   const [retry, setRetry] = useState(() => () => {})
-  const mountRef = useMountedRef()
+  const safeDispatch = useSafeDispatch(dispatch)
   const setData = useCallback(
     (data: D) =>
-      setState({
+      safeDispatch({
         data,
         stat: 'success',
         error: null,
       }),
-    [],
+    [safeDispatch],
   )
 
   const setError = useCallback(
     (error: Error) =>
-      setState({
+      safeDispatch({
         error,
         stat: 'error',
         data: null,
       }),
-    [],
+    [safeDispatch],
   )
 
   const run = useCallback(
@@ -63,10 +73,10 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: Config) => {
           run(runConfig.retry(), runConfig)
         }
       })
-      setState((prev) => ({ ...prev, stat: 'loading' }))
+      safeDispatch({ stat: 'loading' })
       try {
         const data = await promise
-        if (mountRef.current) setData(data)
+        setData(data)
         return data
       } catch (error) {
         setError(error as Error)
@@ -74,7 +84,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: Config) => {
         return error
       }
     },
-    [throwAsyncError, mountRef, setData, setError],
+    [throwAsyncError, setError, safeDispatch, setData],
   )
   return {
     isIdle: state.stat === 'idle',

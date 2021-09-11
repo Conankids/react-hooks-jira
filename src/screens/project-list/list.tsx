@@ -1,6 +1,6 @@
 import React from 'react'
 import { User } from './search-panel'
-import { Table, TableProps } from 'antd'
+import { Popover, Table, TableProps } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
@@ -17,6 +17,7 @@ export interface Project {
 interface ListProp extends TableProps<Project> {
   users: User[]
   refresh?: () => void
+  projectButton: JSX.Element
 }
 
 export const List = ({ users, refresh, ...props }: ListProp) => {
@@ -77,6 +78,17 @@ export const List = ({ users, refresh, ...props }: ListProp) => {
                   ? dayjs(project.created).format('YYYY-MM-DD')
                   : '无'}
               </span>
+            )
+          },
+        },
+        {
+          title: '其他',
+          key: 'other',
+          render() {
+            return (
+              <Popover placement={'bottom'} content={props.projectButton}>
+                ...
+              </Popover>
             )
           },
         },

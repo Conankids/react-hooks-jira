@@ -60,7 +60,7 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
 
   useEffect(() => {
     document.title = title
-    console.log(title)
+    // console.log(title)
   }, [title])
 
   useEffect(() => {
