@@ -1,10 +1,11 @@
 import React from 'react'
 import { User } from './search-panel'
-import { Popover, Table, TableProps } from 'antd'
+import { Dropdown, Menu, Table, TableProps } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
 import { useEditProject } from './project'
+import { ButtonNoPadding } from 'components/lib'
 export interface Project {
   id: number
   name: string
@@ -86,9 +87,17 @@ export const List = ({ users, refresh, ...props }: ListProp) => {
           key: 'other',
           render() {
             return (
-              <Popover placement={'bottom'} content={props.projectButton}>
-                ...
-              </Popover>
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key={'edit'}>
+                      <ButtonNoPadding type={'link'}>编辑</ButtonNoPadding>
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <ButtonNoPadding type={'link'}>...</ButtonNoPadding>
+              </Dropdown>
             )
           },
         },
