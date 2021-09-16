@@ -6,9 +6,10 @@ import styled from '@emotion/styled'
 import { useProjects } from './project'
 import { useUsers } from './users'
 import { Row, Typography } from 'antd'
-import { useProjectsSearchParams } from './url'
+import { useProjectModel, useProjectsSearchParams } from './util'
+import { ButtonNoPadding } from 'components/lib'
 
-export const ProjectList = (props: { projectButton: JSX.Element }) => {
+export const ProjectList = () => {
   // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
   const [param, setParam] = useProjectsSearchParams()
   const {
@@ -28,11 +29,14 @@ export const ProjectList = (props: { projectButton: JSX.Element }) => {
   // }, [value])
 
   const { data: users } = useUsers()
+  const { open } = useProjectModel()
   return (
     <Container>
       <Row justify={'space-between'}>
         <h1>项目列表</h1>
-        {props.projectButton}
+        <ButtonNoPadding type={'link'} onClick={open}>
+          创建项目
+        </ButtonNoPadding>
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? (
@@ -43,7 +47,6 @@ export const ProjectList = (props: { projectButton: JSX.Element }) => {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
-        {...props}
       />
     </Container>
   )

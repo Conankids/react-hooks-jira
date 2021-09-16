@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ProjectList as ProjectListScreen } from 'screens/project-list'
 import styled from '@emotion/styled'
 import { useAuth } from 'context/auth-context'
@@ -17,60 +17,32 @@ import { ProjectModel } from 'screens/project-list/project-model'
 import { ProjectPopover } from 'components/project-popover'
 
 export const AuthEnticatedApp = () => {
-  const [projectModelOpen, setProjectModelOpen] = useState(false)
-
   useDocumentTitle('项目列表', false)
   return (
     <Container>
-      <PageHeader
-        projectButton={
-          <ButtonNoPadding
-            type={'link'}
-            onClick={() => setProjectModelOpen(true)}
-          >
-            创建项目
-          </ButtonNoPadding>
-        }
-      />
-      <Main>
-        <Router>
+      <Router>
+        <PageHeader />
+        <Main>
           <Routes>
-            <Route
-              path="/projects"
-              element={
-                <ProjectListScreen
-                  projectButton={
-                    <ButtonNoPadding
-                      type={'link'}
-                      onClick={() => setProjectModelOpen(true)}
-                    >
-                      创建项目
-                    </ButtonNoPadding>
-                  }
-                />
-              }
-            />
+            <Route path="/projects" element={<ProjectListScreen />} />
             <Route path="/projects/:projectId/*" element={<ProjectScreen />} />
             <Navigate to={'/projects'} />
           </Routes>
-        </Router>
-      </Main>
-      <ProjectModel
-        projectModelOpen={projectModelOpen}
-        onClose={() => setProjectModelOpen(false)}
-      ></ProjectModel>
+        </Main>
+        <ProjectModel />
+      </Router>
     </Container>
   )
 }
 
-const PageHeader = (props: { projectButton: JSX.Element }) => {
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonNoPadding type={'link'} onClick={resetRoute}>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
         </ButtonNoPadding>
-        <ProjectPopover {...props} />
+        <ProjectPopover />
         <span>用户</span>
       </HeaderLeft>
       <HeaderRight>

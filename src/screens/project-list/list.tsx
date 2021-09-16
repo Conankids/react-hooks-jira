@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
 import { useEditProject } from './project'
 import { ButtonNoPadding } from 'components/lib'
+import { useProjectModel } from './util'
 export interface Project {
   id: number
   name: string
@@ -18,7 +19,6 @@ export interface Project {
 interface ListProp extends TableProps<Project> {
   users: User[]
   refresh?: () => void
-  projectButton: JSX.Element
 }
 
 export const List = ({ users, refresh, ...props }: ListProp) => {
@@ -26,6 +26,7 @@ export const List = ({ users, refresh, ...props }: ListProp) => {
   // 巧用函数柯里化实现多参数调用
   const pinProject = (id: number) => (pin: boolean) =>
     mutate({ id, pin }).then(refresh)
+  const { open } = useProjectModel()
   return (
     <Table
       pagination={false}
@@ -91,7 +92,9 @@ export const List = ({ users, refresh, ...props }: ListProp) => {
                 overlay={
                   <Menu>
                     <Menu.Item key={'edit'}>
-                      <ButtonNoPadding type={'link'}>编辑</ButtonNoPadding>
+                      <ButtonNoPadding type={'link'} onClick={open}>
+                        编辑
+                      </ButtonNoPadding>
                     </Menu.Item>
                   </Menu>
                 }
