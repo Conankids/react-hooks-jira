@@ -56,3 +56,10 @@ export const ErrorText = ({ error }: { error: unknown }) =>
   isError(error) ? (
     <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
   ) : null
+
+export const ScreenContainer = styled.div`
+  padding: 3.2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`

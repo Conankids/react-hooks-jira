@@ -6,7 +6,7 @@ import { Pin } from 'components/pin'
 import { useDeleteProject, useEditProject } from './project'
 import { ButtonNoPadding } from 'components/lib'
 import { useProjectModel, useProjectsQueryKey } from './util'
-import { Project } from 'types/Project'
+import { Project } from 'types/project'
 import { User } from 'types/user'
 
 interface ListProp extends TableProps<Project> {

@@ -3,7 +3,7 @@
 import React from 'react'
 import { Form, Input } from 'antd'
 import { UserSelect } from 'components/user-select'
-import { Project } from 'types/Project'
+import { Project } from 'types/project'
 import { User } from 'types/user'
 
 interface SearchPanelProps {

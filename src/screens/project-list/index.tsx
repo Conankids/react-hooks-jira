@@ -2,12 +2,11 @@ import React from 'react'
 import { List } from './list'
 import { SearchPanel } from './search-panel'
 import { useDebounce /*, useArray */ } from 'utils/index'
-import styled from '@emotion/styled'
 import { useProjects } from './project'
 import { useUsers } from './users'
 import { Row } from 'antd'
 import { useProjectModel, useProjectsSearchParams } from './util'
-import { ButtonNoPadding, ErrorText } from 'components/lib'
+import { ButtonNoPadding, ErrorText, ScreenContainer } from 'components/lib'
 
 export const ProjectList = () => {
   // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
@@ -26,7 +25,7 @@ export const ProjectList = () => {
   const { data: users } = useUsers()
   const { open } = useProjectModel()
   return (
-    <Container>
+    <ScreenContainer>
       <Row justify={'space-between'}>
         <h1>项目列表</h1>
         <ButtonNoPadding type={'link'} onClick={open}>
@@ -36,10 +35,10 @@ export const ProjectList = () => {
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       <ErrorText error={error} />
       <List loading={isLoading} users={users || []} dataSource={list || []} />
-    </Container>
+    </ScreenContainer>
   )
 }
 // ProjectList.whyDidYouRender = true
-const Container = styled.div`
-  padding: 3.2rem;
-`
+// const Container = styled.div`
+//   padding: 3.2rem;
+// `
