@@ -4,7 +4,7 @@ import { useForm } from 'antd/lib/form/Form'
 import { ErrorText } from 'components/lib'
 import { UserSelect } from 'components/user-select'
 import React, { useEffect } from 'react'
-import { Project } from './list'
+import { Project } from 'types/Project'
 import { useAddProject, useEditProject } from './project'
 import { useProjectModel, useProjectsQueryKey } from './util'
 

@@ -13,7 +13,7 @@ export const ProjectScreen = () => {
       <Routes>
         <Route path={'kanban'} element={<KanbanScreen />} />
         <Route path={'epic'} element={<EpicScreen />} />
-        <Navigate to={'kanban'} />
+        <Navigate to={'kanban'} replace={true} />
       </Routes>
     </div>
   )

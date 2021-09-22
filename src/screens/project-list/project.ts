@@ -1,12 +1,12 @@
 import { cleanObject } from 'utils'
 import { useHttp } from 'utils/http'
-import { Project } from './list'
 import { QueryKey, useMutation, useQuery } from 'react-query'
 import {
   useAddConfig,
   useDeleteConfig,
   useEditConfig,
 } from 'utils/use-optimistic-options'
+import { Project } from 'types/Project'
 
 export const useProjects = (params?: Partial<Project>) => {
   const client = useHttp()
