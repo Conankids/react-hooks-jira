@@ -13,7 +13,6 @@ export const cleanObject = (obj: Record<string, unknown>) => {
       delete result[key]
     }
   })
-  console.log(result)
   return result
 }
 

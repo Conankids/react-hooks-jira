@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Login } from 'unauthenticated-app/login'
 import { Register } from 'unauthenticated-app/register'
-import { Card, Divider, Button, Typography } from 'antd'
+import { Card, Divider, Button } from 'antd'
 import styled from '@emotion/styled'
 import logo from 'assets/logo.svg'
 import left from 'assets/left.svg'
 import right from 'assets/right.svg'
+import { ErrorText } from 'components/lib'
 
 export const UnAuthEnticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false)
@@ -16,9 +17,7 @@ export const UnAuthEnticatedApp = () => {
       <Background />
       <ShadowCard>
         <Title>{!isRegister ? '请登录' : '请注册'}</Title>
-        {error ? (
-          <Typography.Text type={'danger'}>{error.message}</Typography.Text>
-        ) : null}
+        <ErrorText error={error} />
         {isRegister ? (
           <Register onError={setError} />
         ) : (

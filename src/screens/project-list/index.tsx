@@ -5,19 +5,14 @@ import { useDebounce /*, useArray */ } from 'utils/index'
 import styled from '@emotion/styled'
 import { useProjects } from './project'
 import { useUsers } from './users'
-import { Row, Typography } from 'antd'
+import { Row } from 'antd'
 import { useProjectModel, useProjectsSearchParams } from './util'
-import { ButtonNoPadding } from 'components/lib'
+import { ButtonNoPadding, ErrorText } from 'components/lib'
 
 export const ProjectList = () => {
   // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
   const [param, setParam] = useProjectsSearchParams()
-  const {
-    isLoading,
-    error,
-    data: list,
-    retry,
-  } = useProjects(useDebounce(param, 300))
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 300))
   // const persons: { name: string; age: number }[] = [
   //   { name: 'jack', age: 25 },
   //   { name: 'li', age: 20 },
@@ -39,15 +34,8 @@ export const ProjectList = () => {
         </ButtonNoPadding>
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
-      {error ? (
-        <Typography.Text type={'danger'}>{error.message}</Typography.Text>
-      ) : null}
-      <List
-        refresh={retry}
-        loading={isLoading}
-        users={users || []}
-        dataSource={list || []}
-      />
+      <ErrorText error={error} />
+      <List loading={isLoading} users={users || []} dataSource={list || []} />
     </Container>
   )
 }

@@ -41,7 +41,7 @@ export const FullPageLoading = () => (
 
 export const FullPageError = ({ error }: { error: Error | null }) => (
   <FullPage>
-    <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
+    <ErrorText error={error} />
     <DevTools />
   </FullPage>
 )
@@ -49,3 +49,10 @@ export const FullPageError = ({ error }: { error: Error | null }) => (
 export const ButtonNoPadding = styled(Button)`
   padding: 0;
 `
+// eslint-disable-next-line
+const isError = (value: any): value is Error => value?.message
+
+export const ErrorText = ({ error }: { error: unknown }) =>
+  isError(error) ? (
+    <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
+  ) : null

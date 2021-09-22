@@ -26,6 +26,7 @@
     "max-lines-per-function": ["warn", 100],
     "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "@typescript-eslint/no-empty-function": ["off"],
+    "@typescript-eslint/no-explicit-any": ["off"],
     "cognitive-complexity": ["off"]
   }
 }
