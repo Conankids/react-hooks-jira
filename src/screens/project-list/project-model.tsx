@@ -28,6 +28,11 @@ export const ProjectModel = () => {
     })
   }
 
+  const closeModel = () => {
+    form.resetFields()
+    close()
+  }
+
   const title = editingProject ? '编辑项目' : '创建项目'
 
   useEffect(() => {
@@ -37,7 +42,7 @@ export const ProjectModel = () => {
   return (
     <Drawer
       forceRender={true}
-      onClose={close}
+      onClose={closeModel}
       visible={projectModelOpen}
       width={'100%'}
     >
