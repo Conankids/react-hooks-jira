@@ -8,7 +8,7 @@ import left from 'assets/left.svg'
 import right from 'assets/right.svg'
 import { ErrorText } from 'components/lib'
 
-export const UnAuthEnticatedApp = () => {
+const UnAuthEnticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false)
   const [error, setError] = useState<Error | null>(null)
   return (
@@ -70,3 +70,5 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
 `
+
+export default UnAuthEnticatedApp

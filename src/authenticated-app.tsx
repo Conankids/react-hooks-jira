@@ -17,7 +17,7 @@ import { ProjectModel } from 'screens/project-list/project-model'
 import { ProjectPopover } from 'components/project-popover'
 import { UserPopover } from 'components/user-popover'
 
-export const AuthEnticatedApp = () => {
+const AuthEnticatedApp = () => {
   useDocumentTitle('项目列表', false)
   return (
     <Container>
@@ -91,3 +91,5 @@ const Main = styled.main`
   height: calc(100vh - 6rem);
   display: flex;
 `
+
+export default AuthEnticatedApp
