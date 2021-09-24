@@ -13,7 +13,8 @@ interface ListProp extends TableProps<Project> {
   users: User[]
 }
 
-export const List = ({ users, ...props }: ListProp) => {
+// 父组件更新，子组件使用React.memo可以不更新
+export const List = React.memo(function List({ users, ...props }: ListProp) {
   const { mutate } = useEditProject(useProjectsQueryKey())
   // 巧用函数柯里化实现多参数调用
   const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin })
@@ -85,7 +86,7 @@ export const List = ({ users, ...props }: ListProp) => {
       {...props}
     ></Table>
   )
-}
+})
 
 const More = ({ project }: { project: Project }) => {
   const { startEdit } = useProjectModel()

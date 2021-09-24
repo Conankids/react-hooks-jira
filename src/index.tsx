@@ -8,13 +8,16 @@ import { loadServer, DevTools } from 'jira-dev-tool'
 // 放在jira-dev-tool下面可以覆盖其主题色
 import 'antd/dist/antd.less'
 import { AppProviders } from 'context'
+import { Profiler } from 'components/profiler'
 
 loadServer(() => {
   ReactDOM.render(
     // <React.StrictMode>
     <AppProviders>
       <DevTools />
-      <App />
+      <Profiler id={'root App'} phases={['mount']}>
+        <App />
+      </Profiler>
     </AppProviders>,
     // </React.StrictMode>,
     document.getElementById('root'),

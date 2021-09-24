@@ -7,6 +7,7 @@ import { useUsers } from './users'
 import { Row } from 'antd'
 import { useProjectModel, useProjectsSearchParams } from './util'
 import { ButtonNoPadding, ErrorText, ScreenContainer } from 'components/lib'
+import { Profiler } from 'components/profiler'
 
 export const ProjectList = () => {
   // !useHook中：基本类型，可以放在依赖里；组件状态可以放在依赖里；非组件状态的对象，决不能放在依赖里
@@ -34,7 +35,9 @@ export const ProjectList = () => {
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       <ErrorText error={error} />
-      <List loading={isLoading} users={users || []} dataSource={list || []} />
+      <Profiler id={'项目列表'}>
+        <List loading={isLoading} users={users || []} dataSource={list || []} />
+      </Profiler>
     </ScreenContainer>
   )
 }
