@@ -9,7 +9,7 @@ export const UserPopover = () => {
 
   const content = (
     <ContentContainer>
-      <Typography.Text type={'secondary'}>组员</Typography.Text>
+      <Typography.Text type={'secondary'}>组员列表</Typography.Text>
       <List loading={isLoading}>
         {users?.map((user) => (
           <List.Item key={user.id}>

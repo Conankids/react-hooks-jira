@@ -39,7 +39,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "mock": "json-server __json_server_mock__/db.json -w -p=3001 -m __json_server_mock__/middleware.js "
+    "mock": "json-server __json_server_mock__/db.json -w -p=3001 -m __json_server_mock__/middleware.js ",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build -r https://github.com/gitname/react-gh-pages.git -b main"
   },
   "eslintConfig": {
     "extends": [
@@ -68,6 +70,7 @@
     "@welldone-software/why-did-you-render": "^6.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.2",
     "json-server": "^0.16.3",
     "prettier": "^2.3.2"
