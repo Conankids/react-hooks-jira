@@ -6,12 +6,7 @@ import { ButtonNoPadding, Row } from 'components/lib'
 import { ReactComponent as SoftwareLogo } from 'assets/software-logo.svg'
 import { Dropdown, Menu, Button } from 'antd'
 import { resetRoute, useDocumentTitle } from 'utils'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProjectScreen } from 'screens/project'
 import { ProjectModel } from 'screens/project-list/project-model'
 import { ProjectPopover } from 'components/project-popover'
@@ -21,17 +16,15 @@ const AuthEnticatedApp = () => {
   useDocumentTitle('项目列表', false)
   return (
     <Container>
-      <Router>
-        <PageHeader />
-        <Main>
-          <Routes>
-            <Route path="/projects" element={<ProjectListScreen />} />
-            <Route path="/projects/:projectId/*" element={<ProjectScreen />} />
-            <Navigate to={'/projects'} />
-          </Routes>
-        </Main>
-        <ProjectModel />
-      </Router>
+      <PageHeader />
+      <Main>
+        <Routes>
+          <Route path="/projects" element={<ProjectListScreen />} />
+          <Route path="/projects/:projectId/*" element={<ProjectScreen />} />
+          <Navigate to={'/projects'} />
+        </Routes>
+      </Main>
+      <ProjectModel />
     </Container>
   )
 }
