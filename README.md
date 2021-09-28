@@ -36,4 +36,4 @@ yarn deploy
 
 使用`gh-pages`提交并部署到 github page
 
-使用`spa-gh-pages`解决单页应用跳转 404 问题
+使用[`spa-github-pages`](https://github.com/rafgraph/spa-github-pages)解决单页应用跳转 404 问题
